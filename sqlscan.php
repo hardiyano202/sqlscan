@@ -33,12 +33,16 @@ $grey = "\e[37m";
 $cyan = "\e[36m";
 $bold   = "\e[1m";
 system("clear");
+function asciiart() {
 echo "$green
    ___    ___      _                ___                           
   / __|  / _ \    | |       o O O  / __|    __     __ _    _ _    
   \__ \ | (_) |   | |__    o       \__ \   / _|   / _` |  | ' \   
   |___/  \__\_\   |____|  TS__[O]  |___/   \__|_  \__,_|  |_||_|  
 ";
+}
+asciiart();
+echo "$yellow=========================== Cvar1984 ===========================\n";
 Cvar1984:
 echo "\n";
 userinput("Web yg ingin di scan");
@@ -57,8 +61,9 @@ if (strpos($ip, '://') !== false) {
       }
 	  scanlist:
 	  system("clear");
-    echo "$yellow===================== Cvar1984 =====================\n$white [1] SQL Error Page ( Cari Pages Vuln Sql )$white \n [2] Admin Finder ( Cari Pages Login Admin ) \n$white [B] Back ( Ganti Target ) \n$red [Q]  Quit! \n$yellow===================== Cvar1984 =====================\n\n" . $cln;
-	askscan:
+	  asciiart();
+	  echo "$yellow=========================== Cvar1984 ===========================\n$white [1] SQL Error Page ( Cari Pages Vuln Sql )$white \n [2] Admin Finder ( Cari Pages Login Admin ) \n$white [B] Back ( Ganti Target ) \n$red [Q]  Quit! \n$yellow=========================== Cvar1984 ===========================\n";
+	aksi:
     userinput("Pilih Aksi Pada List");
     $scan = trim(fgets(STDIN, 1024));
 
@@ -71,7 +76,7 @@ if (strpos($ip, '://') !== false) {
         'q',
     ), true)) {
         echo $bold . $red . "\n[!] Input false [!] \n\n" . $cln;
-        goto askscan;
+        goto aksi;
       }else {
         if ($scan == "0") {
             goto Cvar1984;
@@ -88,10 +93,10 @@ if (strpos($ip, '://') !== false) {
             echo "\n\n";
             echo $bold . $blue . "\n[i] Loading Crawler File ....\n" . $cln;
             if (file_exists("admin.ini")) {
-                echo $bold . $green . "\n [i] admin.ini Found! Scanning  Admin Pannel [i]\n" . $cln;
+                echo $bold . $green . "\n [i] 200 admin.ini! Scanning  Admin Pannel [i]\n" . $cln;
                 $crawllnk = file_get_contents("admin.ini");
                 $crawls   = explode(',', $crawllnk);
-                echo "\nURLs Loaded: " . count($crawls) . "\n\n";
+                echo "\n URLs Loaded : " . count($crawls) . "\n\n";
                 foreach ($crawls as $crawl) {
                     $url    = $ipsl . $ip . "/" . $crawl;
                     $handle = curl_init($url);
@@ -99,24 +104,23 @@ if (strpos($ip, '://') !== false) {
                     $response = curl_exec($handle);
                     $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
                     if ($httpCode == 200) {
-                        echo $bold . $lblue . "\n\n[U] $url : " . $cln;
+                        echo $bold . $lblue . "\n\n[URL] $url : " . $cln;
                         echo $bold . $green . "Found!" . $cln;
                       }elseif ($httpCode == 404) {
                       }else {
-                        echo $bold . $lblue . "\n\n[U] $url : " . $cln;
-                        echo $bold . $yellow . "HTTP Response: " . $httpCode . $cln;
+                        echo $bold . $lblue . "\n\n[URL] $url : " . $cln;
+                        echo $bold . $yellow . "HTTP Response : " . $httpCode . $cln;
                       }
                     curl_close($handle);
                   }
               }else {
                 echo "\n 404 File Not Found, Aborting Scan ....\n";
               }
-            if (file_exists("backup.ini"))
-              {
-                echo "\n[-] Backup Crawler File Found! Scanning Situs Backups [-]\n";
+            if (file_exists("backup.ini")) {
+                echo "\n[!] 200 Backup Crawler File ! Scanning Situs Backups [!]\n";
                 $crawllnk = file_get_contents("backup.ini");
                 $crawls   = explode(',', $crawllnk);
-                echo "\nURLs Loaded: " . count($crawls) . "\n\n";
+                echo "\n URLs Loaded: " . count($crawls) . "\n\n";
                 foreach ($crawls as $crawl)
                   {
                     $url    = $ipsl . $ip . "/" . $crawl;
@@ -125,22 +129,22 @@ if (strpos($ip, '://') !== false) {
                     $response = curl_exec($handle);
                     $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
                     if ($httpCode == 200) {
-                        echo $bold . $lblue . "\n\n[U] $url : " . $cln;
+                        echo $bold . $lblue . "\n\n[URL] $url : " . $cln;
                         echo $bold . $green . "Found!" . $cln;
                       }elseif ($httpCode == 404) {
                       }else {
-                        echo $bold . $lblue . "\n\n[U] $url : " . $cln;
-                        echo $bold . $yellow . "HTTP Response: " . $httpCode . $cln;
+                        echo $bold . $lblue . "\n\n[URL] $url : " . $cln;
+                        echo $bold . $yellow . "HTTP Response : " . $httpCode . $cln;
                       }
                     curl_close($handle);
                   }
               }else {
-                echo "\n File Not Found, Aborting Crawl ....\n";
+                echo "\n 404 File Not Found, Aborting Admin Finder ....\n";
               }if (file_exists("others.ini")) {
-                echo "\n[-] General Crawler File Found! Crawling The Site [-]\n";
+                echo "\n[!] 200 General Crawler File Found! Scanning The Site [!]\n";
                 $crawllnk = file_get_contents("others.ini");
                 $crawls   = explode(',', $crawllnk);
-                echo "\nURLs Loaded: " . count($crawls) . "\n\n";
+                echo "\n URLs Loaded: " . count($crawls) . "\n\n";
                 foreach ($crawls as $crawl) {
                     $url    = $ipsl . $ip . "/" . $crawl;
                     $handle = curl_init($url);
@@ -200,7 +204,7 @@ if (strpos($ip, '://') !== false) {
               }
             echo "\n" . $blue . $bold . "[!] Scanning : " . $green . $vlnk;
             echo "\n\n";
-            echo $bold . $yellow . "[!] Scanning Sukses. Tekan Enter untuk lanjut\n\n";
+            echo "$bold $yellow [!] Scanning Sukses. Tekan Enter untuk lanjut [!]";
             trim(fgets(STDIN, 1024));
             goto scanlist;
           }else goto scanlist;
